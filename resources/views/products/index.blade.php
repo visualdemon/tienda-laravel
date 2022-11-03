@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
+@extends('products.layouts.main')
+@section('contenido')
+    <div class="container"></br>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -30,6 +22,7 @@
                                 <th>user_id</th>
                                 <th>created</th>
                                 <th>Total</th>
+                                <th>Acción</th>
                             </thead>
                             <tbody>
                                 @php
@@ -48,8 +41,15 @@
                                     <td>{{$product->user_id}}</td>
                                     <td>{{$product->created_at}}</td>
                                     <td class="text-right">$ {{$total}}</td>
+                                    <td>
+                                        <a href="{{ route('products.edit', $product->id)}}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
+                                        <a href="javascript: document.getElementById('delete-{{$product->id}}').submit()" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                        <form id="delete-{{$product->id}}" action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                            @method('delete')
+                                            @csrf
+                                        </form>
+                                    </td>  
                                 </tr>
-
                                 @endforeach
                             </tbody>
                         </table>
@@ -58,5 +58,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection

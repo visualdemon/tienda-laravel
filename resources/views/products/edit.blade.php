@@ -5,27 +5,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Crear Productos
+                        Editar Productos
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('products.index') }}" method="POST">
-                            @csrf
+                        <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+
                             <div class="form-group">
                                 <label for="">Usuario</label>
-                                <input type="number" class="form-control" name="user_id">
+                                <input type="number"  name="user_id" value="{{ $product->user_id}}" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Descripción</label>
-                                <input type="text" class="form-control" name="description">
+                                <input type="text" name="description" value="{{$product->description}}" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label for="">Precio</label>
-                                <input type="number" class="form-control" name="price">
+                                <input type="number" name="price" value="{{$product->price}}" class="form-control" >
                             </div>
                             
                             </br>
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a href="{{ route ('products.index')}}" class="btn btn-danger">Cancelar</a>
+                            <a href="{{route ('products.index')}}" class="btn btn-danger">Cancelar</a>
                         </form>
                     </div>
                 </div>
